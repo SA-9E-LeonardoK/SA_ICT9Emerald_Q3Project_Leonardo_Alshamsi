@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help Station</title>
+</head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @font-face {
+    font-family: "Poppins";
+    src: url("Poppins.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Bauhaus";
+    src: url("ITCBauhaus.otf") format("opentype");
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #fdf6e3;
+    color: #4a3521;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  h1, h2 {
+    font-family: "Bauhaus", sans-serif;
+    color: #4a3521;
+  }
+
+  nav {
+    background-color: #ffc2c6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    margin: 10px 10px 0px 10px;
+    border: 3px solid #4a3521;
+    border-radius: 15px;
+    border-color: #4a3521;
+    width: calc(100% - 20px)
+  }
+
+  .navbar-nav {
+    flex-direction: row;
+    gap: 30px;
+  }
+  .nav-logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 18px;
+    flex: 1;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a3521;
+    text-decoration: none;
+  }
+
+  .nav-links li a:hover { text-decoration: underline; }
+
+  .lang-btn {
+    background: #4a3521;
+    color: #ffc2c6;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    border-radius: 20px;
+    padding: 6px 16px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    transition: background 0.2s;
+  }
+  .lang-btn:hover { background: #6b4f35; }
+
+  .hero {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+    background: #fdf6e3;
+  }
+
+  .help-card {
+    width: 560px;
+    max-width: 100%;
+    background: #d3e5f0;
+    border-radius: 24px;
+    border: 3px solid #4a3521;
+    padding: 40px 44px;
+  }
+
+  .card-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .card-header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #4a3521;
+    letter-spacing: 1px;
+  }
+
+  .card-header p {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a3521;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: #4a3521;
+    border-radius: 10px;
+    margin: 14px auto 0;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 16px;
+  }
+
+  .form-group label {
+    font-size: 11.5px;
+    font-weight: 900;
+    color: #4a3521;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 2px solid #4a3521;
+    background: #fffaef;
+    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: #4a3521;
+    outline: none;
+    transition: background 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { background: #fff; }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-group select { cursor: pointer; }
+
+  .row { display: flex; gap: 14px; }
+  .row .form-group { flex: 1; }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 13px;
+    background: #fffaef;
+    border: 2px solid #4a3521;
+    color: #4a3521;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 900;
+    font-family: "Poppins", sans-serif;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: #ffedc9; }
+
+  .cancel-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 11px;
+    background: #fffaef;
+    border: 2px solid #4a3521;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: "Poppins", sans-serif;
+    color: #4a3521;
+    transition: background 0.2s;
+  }
+  .cancel-btn:hover { background: #ffedc9; }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #ffedc9;
+    backdrop-filter: blur(3px);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-overlay.show {
+    display: flex;
+  }
+
+  .modal-box {
+    background: #ffedc9;
+    border: 3px solid #4a3521;
+    border-radius: 24px;
+    padding: 36px 40px;
+    width: 360px;
+    max-width: 90%;
+    text-align: center;
+    animation: popIn 0.25s ease;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+
+  .modal-img {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    margin-bottom: 14px;
+  }
+
+  .modal-emoji {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 14px;
+  }
+
+  .modal-title {
+    font-family: "Bauhaus";
+    font-size: 20px;
+    font-weight: 900;
+    color: #4a3521;
+    margin-bottom: 8px;
+  }
+
+  .modal-msg {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4a3521;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .modal-ok-btn {
+    background: #4a3521;
+    color: #fffaef;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 32px;
+    font-size: 14px;
+    font-weight: 800;
+    font-family: "Poppins";
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .modal-ok-btn:hover { background: #4a3521; }
+
+  .modal-box.error { background: #d3e5f0; }
+  .modal-box.error .modal-ok-btn { background: #d3e5f0; }
+  .modal-box.error .modal-ok-btn:hover { background: #d3e5f0; }
+
+  @media (max-width: 600px) {
+    .help-card { padding: 28px 20px; }
+    .row { flex-direction: column; gap: 0; }
+  }
+</style>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="Chiikawa Express Logo">
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="page4.html">Booking</a></li>
+    <li><a href="page5.html">Help</a></li>
+    <li><a href="page6.html">Staff</a></li>
+    <li><a href="page2.html">Register</a></li>
+  </ul>
+  <div class="dropdown">
+    <button class="btn dropdown-toggle lang-btn" type="button" data-bs-toggle="dropdown">
+      Language
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a></li>
+      <li><a class="dropdown-item" href="#" onclick="setLanguage('jp')">日本語</a></li>
+    </ul>
+  </div>
+</nav>
+
+  <section class="hero">
+    <div class="help-card">
+      <div class="card-header">
+        <h1 data-en="Help Station" data-ja="ヘルプステーション">Help Station</h1>
+        <p data-en="Send us an email of your concern!" data-ja="ご用件をメールでお送りください！">Send us an email of your concern!</p>
+        <div class="divider"></div>
+      </div>
+
+      <form onsubmit="return false;">
+        <div class="row">
+          <div class="form-group">
+            <label data-en="First Name" data-ja="名">First Name</label>
+            <input type="text" id="placeholder-firstname" placeholder="e.g. Chiikawa">
+          </div>
+          <div class="form-group">
+            <label data-en="Last Name" data-ja="姓">Last Name</label>
+            <input type="text" id="placeholder-lastname" placeholder="e.g. Hachiware">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label data-en="Email Address" data-ja="メールアドレス">Email Address</label>
+          <input type="email" id="placeholder-email" placeholder="your@email.com">
+        </div>
+
+        <div class="form-group">
+          <label data-en="Contact Number" data-ja="電話番号">Contact Number</label>
+          <input type="text" id="placeholder-phone" placeholder="+81 9XX XXX XXXX">
+        </div>
+
+        <div class="form-group">
+          <label data-en="Concern Type" data-ja="お問い合わせ種別">Concern Type</label>
+          <select id="concern-select">
+            <option value="" disabled selected data-en="Select a concern..." data-ja="種別を選択...">Select a concern...</option>
+            <option data-en="General Inquiry" data-ja="一般的なお問い合わせ">General Inquiry</option>
+            <option data-en="Booking Issue" data-ja="予約の問題">Booking Issue</option>
+            <option data-en="Schedule / Route" data-ja="スケジュール・路線">Schedule / Route</option>
+            <option data-en="Fare Dispute" data-ja="運賃に関するご異議">Fare Dispute</option>
+            <option data-en="Lost & Found" data-ja="忘れ物・落とし物">Lost &amp; Found</option>
+            <option data-en="Feedback / Suggestion" data-ja="フィードバック・ご提案">Feedback / Suggestion</option>
+            <option data-en="Other" data-ja="その他">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label data-en="Message" data-ja="メッセージ">Message</label>
+          <textarea id="placeholder-message" placeholder="Describe your concern here..."></textarea>
+        </div>
+
+        <button class="submit-btn" data-en="Submit Request" data-ja="送信する" onclick="submitForm()">Submit Request</button>
+        <button class="cancel-btn" href="index.html" data-en="Cancel" data-ja="キャンセル" onclick="clearForm()">Cancel</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-emoji" id="modalEmoji"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-msg" id="modalMsg"></div>
+      <button class="modal-ok-btn" onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'en';
+
+    function toggleLang() {
+      currentLang = currentLang === 'en' ? 'ja' : 'en';
+      const btn = document.getElementById('langToggle');
+      btn.textContent = currentLang === 'en' ? '日本語' : 'English';
+
+      document.querySelectorAll('[data-en][data-ja]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + currentLang);
+      });
+
+      const placeholders = {
+        'placeholder-firstname': { en: 'Chiikawa',               ja: '例：ちいかわ' },
+        'placeholder-lastname':  { en: 'Hachiware',              ja: '例：ハチワレ' },
+        'placeholder-email':     { en: 'chiikawa@email.com',     ja: 'メール@アドレス.com' },
+        'placeholder-phone':     { en: '+81 9XX XXX XXXX',            ja: '+81 9XX XXX XXXX' },
+        'placeholder-message':   { en: 'State your concern..', ja: 'ご用件をご記入ください...' },
+      };
+
+      for (const [id, texts] of Object.entries(placeholders)) {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = texts[currentLang];
+      }
+    }
+
+    function showModal(type, emoji, title, msg) {
+      document.getElementById('modalEmoji').textContent  = emoji;
+      document.getElementById('modalTitle').textContent  = title;
+      document.getElementById('modalMsg').textContent    = msg;
+      const box = document.getElementById('modalBox');
+      box.className = 'modal-box ' + (type === 'error' ? 'error' : '');
+      document.getElementById('modalOverlay').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('show');
+    }
+
+    function clearForm() {
+      document.getElementById('placeholder-firstname').value = '';
+      document.getElementById('placeholder-lastname').value  = '';
+      document.getElementById('placeholder-email').value     = '';
+      document.getElementById('placeholder-phone').value     = '';
+      document.getElementById('concern-select').value        = '';
+      document.getElementById('placeholder-message').value  = '';
+    }
+
+    function submitForm() {
+      const firstname = document.getElementById('placeholder-firstname').value.trim();
+      const lastname  = document.getElementById('placeholder-lastname').value.trim();
+      const email     = document.getElementById('placeholder-email').value.trim();
+      const phone     = document.getElementById('placeholder-phone').value.trim();
+      const concern   = document.getElementById('concern-select').value;
+      const message   = document.getElementById('placeholder-message').value.trim();
+
+      if (!firstname || !lastname || !email || !phone || !concern || !message) {
+        showModal(
+          'error',
+          '(╥﹏╥)',
+          currentLang === 'en' ? 'Incomplete Form' : '入力が不完全です',
+          currentLang === 'en'
+            ? 'Please fill out all fields before submitting!'
+            : '送信前にすべての項目を入力してください！'
+        );
+        return;
+      }
+
+      showModal(
+        'success',
+        '(˶ᵔ ᵕ ᵔ˶)' ,
+        currentLang === 'en' ? 'Request Sent!' : 'リクエスト送信完了！',
+        currentLang === 'en'
+          ? `Thank you, ${firstname}! We'll get back to you soon.`
+          : `ありがとうございます、${firstname}さん！近日中にご連絡いたします。`
+      );
+
+      clearForm();
+    }
+  </script>
+
+</body>
+</html>

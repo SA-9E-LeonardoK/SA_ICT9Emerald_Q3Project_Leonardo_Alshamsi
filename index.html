@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Chiikawa Express</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="logo.png" alt="Chiikawa Express" width="60">
+    </a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="page4.html">Booking</a></li>
+      <li class="nav-item"><a class="nav-link" href="page6.html">Staff</a></li>
+      <li class="nav-item"><a class="nav-link" href="page2.html">Register</a></li>
+      <li class="nav-item"><a class="nav-link" href="page5.html">Help</a></li>
+    </ul>
+    <div class="dropdown">
+      <button class="btn dropdown-toggle lang-btn" type="button" data-bs-toggle="dropdown">
+        Language
+      </button>
+      <ul class="dropdown-menu"> 
+        <li><a class="dropdown-item" href="#" onclick="setLanguage('en')">English</a></li>
+        <li><a class="dropdown-item" href="#" onclick="setLanguage('jp')">日本語</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-image">
+    <img src="chiikawa-home.png" alt="Chiikawa and Friends">
+  </div>
+  <div class="hero-text">
+    <h1>Chiikawa Express</h1>
+    <p>Travel across the city of Japan with Chiikawa Express — your cute, reliable, and affordable way to get around!</p>
+    <div class="hero-buttons">
+      <a href="page4.html"></a><button class="btn-book">Book Now!</button>
+      <a href="#how-to-book"><button class="btn-how">How to Book</button></a>
+    </div>
+  </div>
+</section>
+
+<section class="fare-guide">
+  <h2>Fare Guide</h2>
+<div class="stations">
+
+  <span>Shinjuku Station</span>
+  <span>Shibuya Station</span>
+  <span>Chiikawa Bakery</span>
+  <span>Chiikawa Station</span>
+  <span>Akihabara Station</span>
+</div>
+
+<table class="fare-table">
+  <thead>
+    <tr>
+      <th>Regular Rate</th>
+      <th>PWD Rate</th>
+      <th>Chiikawa Park Discount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>¥250</td>
+      <td>¥200</td>
+      <td>¥180</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section class="how-to-book" id="how-to-book">
+  <h2>How to Book</h2>
+
+  <div class="cards">
+  <div class="card card-usagi">
+    <p>1. Choose your Route</p>
+    <p>Select your starting station and destination from our available routes. Check the Fare Guide to see the ticket price for your trip!</p>
+  </div>
+  <div class="card card-chiikawa">
+    <p>2. Register & Book</p>
+    <p>Create an account and log in to reserve your seat. Choose your preferred schedule, then confirm your booking!</p>
+  </div>
+  <div class="card card-hachi">
+    <p>Ride & Enjoy</p>
+    <p>Present your ticket at the station and hop aboard! Sit back, relax, and enjoy the ride on the Chiikawa Express!</p>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>© 2026 9-Emerald | Aisha Alshamsi & Kyrene Leonardo</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
